@@ -1,0 +1,18 @@
+node_modules/
+package-lock.json
+venv/
+.serverless/
+*.log
+.DS_Store
+
+# end
+dev.yml
+stg.yml
+prd.yml
+
+# IDE
+.vscode/
+.idea/
+
+coverage/
+.cache/
