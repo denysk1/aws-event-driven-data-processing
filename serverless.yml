@@ -1,0 +1,39 @@
+service: event-driven-data-processing
+
+provider:
+  name: aws
+  runtime: python3.8
+  region: ${file(config/${opt:stage, 'dev'}.yml):REGION}
+  stage: ${file(config/${opt:stage, 'dev'}.yml):STAGE}
+
+custom:
+  inputBucket: ${file(config/${opt:stage, 'dev'}.yml):INPUT_BUCKET_NAME}
+  outputBucket: ${file(config/${opt:stage, 'dev'}.yml):OUTPUT_BUCKET_NAME}
+
+package:
+  patterns:
+    - '!./**'
+    - 'functions/**'
+
+functions: ${file(sls/lambda.yml):Functions}
+
+resources:
+  Resources:
+    # Lambda Resources
+    LambdaExecutionRole: ${file(sls/lambda.yml):Resources.LambdaExecutionRole}
+    
+    # S3 Resources
+    InputBucket: ${file(sls/s3.yml):Resources.InputBucket}
+    OutputBucket: ${file(sls/s3.yml):Resources.OutputBucket}
+    
+    # SNS Resources
+    ProcessingTopic: ${file(sls/sns.yml):Resources.ProcessingTopic}
+    ProcessingTopicPolicy: ${file(sls/sns.yml):Resources.ProcessingTopicPolicy}
+    
+    # SQS Resources
+    ProcessingQueue: ${file(sls/sqs.yml):Resources.ProcessingQueue}
+    QueuePolicy: ${file(sls/sqs.yml):Resources.QueuePolicy}
+    QueueSubscription: ${file(sls/sqs.yml):Resources.QueueSubscription}
+    
+    # EventBridge Resources
+    S3EventRule: ${file(sls/eventbridge.yml):Resources.S3EventRule}

@@ -1,0 +1,20 @@
+Resources:
+  ProcessingTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: ${self:service}-${self:provider.stage}-topic
+      TracingConfig: Active
+
+  ProcessingTopicPolicy:
+    Type: AWS::SNS::TopicPolicy
+    Properties:
+      Topics:
+        - !Ref ProcessingTopic
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: events.amazonaws.com
+            Action: sns:Publish
+            Resource: !Ref ProcessingTopic
