@@ -1,0 +1,45 @@
+{
+    "orders": [
+      {
+        "id": "ORD-001",
+        "customer": {
+          "name": "John Smith",
+          "email": "john@example.com"
+        },
+        "items": [
+          {
+            "product_id": "P100",
+            "name": "Laptop",
+            "price": 999.99,
+            "quantity": 1
+          },
+          {
+            "product_id": "P101",
+            "name": "Mouse",
+            "price": 24.99,
+            "quantity": 2
+          }
+        ],
+        "total": 1049.97,
+        "date": "2024-01-15"
+      },
+      {
+        "id": "ORD-002",
+        "customer": {
+          "name": "Jane Doe",
+          "email": "jane@example.com"
+        },
+        "items": [
+          {
+            "product_id": "P102",
+            "name": "Keyboard",
+            "price": 79.99,
+            "quantity": 1
+          }
+        ],
+        "total": 79.99,
+        "date": "2024-01-16"
+      }
+    ]
+  }
+  
